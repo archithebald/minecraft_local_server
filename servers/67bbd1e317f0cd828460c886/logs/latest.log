@@ -1,0 +1,37 @@
+[13:30:43] [ServerMain/INFO]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]
+[13:30:45] [ServerMain/INFO]: Loaded 1290 recipes
+[13:30:45] [ServerMain/INFO]: Loaded 1399 advancements
+[13:30:45] [Server thread/INFO]: Starting minecraft server version 1.21.1
+[13:30:45] [Server thread/INFO]: Loading properties
+[13:30:45] [Server thread/INFO]: Default game type: SURVIVAL
+[13:30:45] [Server thread/INFO]: Generating keypair
+[13:30:45] [Server thread/INFO]: Starting Minecraft server on *:25565
+[13:30:45] [Server thread/INFO]: Using default channel type
+[13:30:45] [Server thread/WARN]: **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
+[13:30:45] [Server thread/WARN]: The server will make no attempt to authenticate usernames. Beware.
+[13:30:45] [Server thread/WARN]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
+[13:30:45] [Server thread/WARN]: To change this, set "online-mode" to "true" in the server.properties file.
+[13:30:45] [Server thread/INFO]: Preparing level "world"
+[13:30:46] [Server thread/INFO]: Preparing start region for dimension minecraft:overworld
+[13:30:47] [Worker-Main-2/INFO]: Preparing spawn area: 0%
+[13:30:47] [Server thread/INFO]: Time elapsed: 398 ms
+[13:30:47] [Server thread/INFO]: Done (1.334s)! For help, type "help"
+[13:30:54] [Server thread/INFO]: archithebald[/192.168.0.100:64796] logged in with entity id 11 at (189.5, 82.0, -50.5)
+[13:30:54] [Server thread/INFO]: archithebald joined the game
+[13:32:00] [Server thread/INFO]: archithebald lost connection: Disconnected
+[13:32:00] [Server thread/INFO]: archithebald left the game
+[13:32:11] [Server thread/INFO]: archithebald[/192.168.56.1:64805] logged in with entity id 527 at (189.92990903162183, 82.0, -51.20792309429338)
+[13:32:11] [Server thread/INFO]: archithebald joined the game
+[13:32:58] [Server thread/INFO]: archithebald lost connection: Disconnected
+[13:32:58] [Server thread/INFO]: archithebald left the game
+[13:33:51] [Server thread/INFO]: Stopping the server
+[13:33:51] [Server thread/INFO]: Stopping server
+[13:33:51] [Server thread/INFO]: Saving players
+[13:33:51] [Server thread/INFO]: Saving worlds
+[13:33:52] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:overworld
+[13:33:52] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_nether
+[13:33:52] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_end
+[13:33:52] [Server thread/INFO]: ThreadedAnvilChunkStorage (world): All chunks are saved
+[13:33:52] [Server thread/INFO]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[13:33:52] [Server thread/INFO]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[13:33:52] [Server thread/INFO]: ThreadedAnvilChunkStorage: All dimensions are saved

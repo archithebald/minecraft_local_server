@@ -1,8 +1,17 @@
 import pymongo, json
 from bson import ObjectId
 
-class Database:
+class Singleton:
+    _instances = {}
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
+        return cls._instances[cls]
+
+class Database(Singleton):
     def __init__(self):
+        super().__init__()
+        
         try:
             self.CLIENT_CONN = pymongo.MongoClient("mongodb://localhost:27017/")
             self.DATABASE_NAME = "minecraft_servers"    
@@ -28,12 +37,13 @@ class Database:
         except Exception as e:
             print(">>> {}".format(e))
             
-    def insert_server(self, game_version: str, description: str = "A minecraft server.", ram_min: int = 1024, ram_max: int = 2048):
+    def insert_server(self, game_version: str, description: str = "A minecraft server.", ram_min: int = 1024, ram_max: int = 2048, server_version: str = "Vanilla"):
         try:
             document = {
                 "description": description,
                 "game_version": game_version,
                 "ram_min": ram_min,
+                "server_version": server_version,
                 "ram_max": ram_max
             }
             inserted = self.SERVERS.insert_one(document=document)

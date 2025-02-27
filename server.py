@@ -1,11 +1,10 @@
-import requests, os, subprocess, json, signal, psutil
+import requests, os, subprocess, json, configparser
 
 from time import sleep
-from utils.config import START_SCRIPT, SERVERS
-from forge_api import Forge, Modpack
+from utils.config import SERVERS
 
 class Server:
-    def __init__(self, server_db, server_id: str = None):
+    def __init__(self, server_db, server_id: str = None, init: bool = True):
         if type(server_db) == str:
             server_db = json.loads(server_db)
          
@@ -18,21 +17,18 @@ class Server:
         self.ram_min = server_db["ram_min"]
         self.ram_max = server_db["ram_max"]
 
-        if not os.path.exists(self.path):
-            print(">>> Server instance not found. ❓")
-            print(f">>> Creating a server instance. 🔧 Version: {self.game_version}")
-            os.mkdir(path=self.path)
-            self.create_instance()
-        else:
-            print(">>> Server instance found. ✅")
-            
-        self.forge_app = Forge()
-            
-        self.update_properties()        
-        self.init_server()
-    
-    def update_properties(self):
-        pass
+        if init:
+            if not os.path.exists(self.path):
+                print(">>> Server instance not found. ❓")
+                print(f">>> Creating a server instance. 🔧 Version: {self.game_version}")
+                os.mkdir(path=self.path)
+                self.create_instance()
+            else:
+                print(">>> Server instance found. ✅")
+                
+            #self.forge_app = Forge()
+                
+            self.init_server()
     
     def create_instance(self):
         self.version = self.get_version()
@@ -78,13 +74,13 @@ class Server:
             
     def start(self):
         try:
-            #command = ["start", START_SCRIPT, str(self.ram_max), str(self.ram_min), self.jar_path]
             command = ["java", f"-Xmx{str(self.ram_max)}M", f"-Xms{str(self.ram_min)}M", "-jar", self.jar_path, "nogui"]
             self.process = subprocess.Popen(
                 command,
                 cwd=self.path,
                 text=True,
                 stdin=subprocess.PIPE, 
+                stdout=subprocess.PIPE,
                 universal_newlines=True
             )
             print(">>> Server started. ✅")
@@ -131,3 +127,41 @@ class Server:
         sleep(2)
         if os.path.exists(self.eula_path):
             self.accept_eula()
+            
+    def get_properties(self):
+        properties_path = os.path.join(self.path, "server.properties")
+        
+        if not os.path.exists(properties_path):
+            return None
+        
+        config = {}
+        
+        with open(properties_path, "r", encoding="utf-8") as f:
+            for line in f.read().splitlines():
+                if not line.startswith("#"):
+                    config[line.split("=")[0]] = line.split("=")[1]
+            
+        return config
+    
+    def update_property(self, updated_name, updated_value):
+        properties_path = os.path.join(self.path, "server.properties")
+        
+        if not os.path.exists(properties_path):
+            return None
+        
+        config = self.get_properties()
+
+        try:
+            with open(properties_path, "w", encoding="utf-8") as f:
+                config[updated_name] = updated_value
+                text_config = '\n'.join(f"{key}={value}" for key, value in config.items())
+                f.write(text_config)
+                return True
+        except Exception as e:
+            print(e)
+            return None
+    
+    def get_property(self, name: str):
+        properties = self.get_properties()
+        prop = [prop.split("=")[1] for prop in properties if prop.split("=")[0] == name]
+        return prop[0]
