@@ -2,12 +2,18 @@ from utils.config import send_response
 from flask import request
 from server import Server
 from utils.database import Database
+from utils.server_methods import server_exists
 
 def route():
     db = Database()
 
     server_id = request.args.get(key="id")
     db_server = db.get_server(server_id=server_id)
+        
+    exists = server_exists(server_id, db.get_server(server_id))
+    
+    if exists != None:
+        return exists
         
     updated_name = request.args.get(key="updated_name")
     updated_value = request.args.get(key="updated_value")
