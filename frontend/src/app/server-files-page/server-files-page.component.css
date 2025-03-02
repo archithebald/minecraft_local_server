@@ -1,0 +1,14 @@
+.content {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.content .main-content {
+  flex: 9;
+  padding: 20px;
+}
+
+.content .main-content .title {
+  color: #2b87d3;
+  margin-bottom: 15px;
+}

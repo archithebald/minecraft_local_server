@@ -1,0 +1,74 @@
+.content {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.content .main-content {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+.content .main-content .header {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 15px;
+  width: 95%;
+  background-color: #2d3943;
+  color: white;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.content .main-content .header .status-box {
+  background-color: red;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
+  border-radius: 5px;
+}
+
+.content .main-content .start-server {
+  padding: 15px 50px;
+  border-radius: 15px;
+  border: none;
+  background-color: #1dc682;
+  cursor: pointer;
+  transition: 0.5s;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.content .main-content .start-server:hover {
+  background-color: #169b66;
+}
+
+.content .main-content .informations {
+  margin-top: 25px;
+  background-color: #2d3943;
+  padding: 15px;
+  border-radius: 15px;
+  gap: 15px;
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  align-items: center;
+}
+
+.content .main-content .informations .information {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content .main-content .informations .information .hint {
+  text-decoration: underline;
+  color: #2b87d3;
+}

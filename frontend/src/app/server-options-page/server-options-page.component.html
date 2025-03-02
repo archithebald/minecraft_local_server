@@ -1,0 +1,40 @@
+<router-outlet></router-outlet>
+<div class="content">
+  <div class="main-content">
+    <h1 class="title">Options</h1>
+    <div class="server-overview">
+      <img src="https://i.pinimg.com/564x/4a/16/1d/4a161d4d6fa53f0cba2152411e2e2159.jpg" alt="Server image"
+        class="image" />
+      <div class="informations">
+        <p class="adress">Address</p>
+        <p class="description">{{description}}</p>
+      </div>
+    </div>
+    <div class="server-properties">
+      <h2 class="properties-title">server.properties</h2>
+      <h3 class="search-title" *ngIf="properties != null">Search</h3>
+      <input type="text" [(ngModel)]="search_query" (input)="filterProperties()" *ngIf="properties != null"
+        class="search-property">
+      <h1 class="offline-message" *ngIf="properties == null">You need to start server first.</h1>
+      <div class="container">
+        <div class="properties" *ngFor="let property of filtered_properties | keyvalue">
+          <div class="property" [id]="property.key">
+            <mat-icon>save</mat-icon>
+            <div class="values">
+              <p class="title">{{property.key}}</p>
+              <p class="value">{{property.key}}={{property.value}}</p>
+            </div>
+            <input type="checkbox" (input)="addChangedProperty(property.key, $event)" class="checkbox"
+              *ngIf="isBoolean(property.value)" [checked]="toBoolean(property.key, property.value)">
+            <input type="text" class="text_input" *ngIf="isString(property.value)"
+              [placeholder]="getPropertyValue(property.key)" (input)="addChangedProperty(property.key, $event)"
+              (input)="saveToLocalStorage(property.key, $event)">
+          </div>
+        </div>
+      </div>
+      <h3 class="message" *ngIf="unsavedChanges()">You have unsaved changes.</h3>
+    </div>
+    <button class="save" (click)="saveProperties()">Save</button>
+  </div>
+  <app-server-page-left></app-server-page-left>
+</div>

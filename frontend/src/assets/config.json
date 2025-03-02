@@ -1,0 +1,13 @@
+{
+  "API_BASE_URL": "http://127.0.0.1:5000",
+  "ENDPOINTS": {
+    "get_all_servers": "/get_all_servers",
+    "get_server": "/get_server",
+    "start_server": "/start",
+    "stop_server": "/stop",
+    "create_server": "/create",
+    "is_server_started": "/is_server_started",
+    "get_server_properties": "/get_server_properties",
+    "update_server_properties": "/update_server_properties"
+  }
+}

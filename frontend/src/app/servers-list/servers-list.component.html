@@ -1,0 +1,17 @@
+<router-outlet></router-outlet>
+<div class="content">
+  <div class="header">
+    <h1>Serveurs</h1>
+  </div>
+
+  <div class="actions">
+    <button class="create" (click)="redirectToCreate()">Create</button>
+  </div>
+  <div class="servers-list" *ngFor="let server of servers; let i = index">
+    <div class="server" (click)="redirectToServer(server._id)">
+      <b class="description">{{ server.description }}</b>
+      <b class="server-id">{{ server._id }}</b>
+      <p class="game_version">{{ server.game_version }}</p>
+    </div>
+  </div>
+</div>

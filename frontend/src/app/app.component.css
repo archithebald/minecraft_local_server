@@ -1,0 +1,40 @@
+.navbar {
+  display: flex;
+  padding: 25px;
+  color: white;
+  background-color: #2d3943;
+  height: 85px;
+}
+
+.navbar .left {
+  display: flex;
+  flex: 5;
+  align-items: center;
+  justify-content: left;
+}
+
+.navbar .left h1 {
+  cursor: pointer;
+}
+
+.navbar .right {
+  display: flex;
+  flex: 5;
+  align-items: center;
+  justify-content: right;
+}
+
+.navbar .right .a {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.navbar .right .a:hover {
+  filter: opacity(0.5);
+}

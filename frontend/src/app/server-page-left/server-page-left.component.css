@@ -1,0 +1,32 @@
+.left {
+  width: 200px;
+  height: 92.1vh;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #2d3943;
+}
+
+.left .modules {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+}
+
+.left .modules .module {
+  text-decoration: none;
+  color: white;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.5s;
+  width: 200px;
+}
+
+.left .modules .module:hover {
+  background-color: #212a31;
+}

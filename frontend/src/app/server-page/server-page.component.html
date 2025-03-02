@@ -1,0 +1,34 @@
+<router-outlet></router-outlet>
+<div class="content">
+  <div class="main-content">
+    <div class="header">
+      <h2 class="server-adress">Archithebald.aternos.me</h2>
+      <div class="status-box" id="status-box">
+        <h3 class="text-status" id="text-status">Hors ligne</h3>
+      </div>
+    </div>
+    <button class="start-server" id="start-button" (click)="startServer($event)">
+      Démarrer
+    </button>
+    <div class="informations">
+      <div class="information" id="server-adress">
+        <h3 class="hint">Adress</h3>
+        <h3 class="text">{{ adress }}</h3>
+      </div>
+      <div class="information" id="server-version">
+        <h3 class="hint">Version</h3>
+        <h3 class="text">{{ server_version }}</h3>
+      </div>
+      <div class="information" id="game-version">
+        <h3 class="hint">Game Version</h3>
+        <h3 class="text">{{ game_version }}</h3>
+      </div>
+      <div class="information" id="ram">
+        <h3 class="hint">Ram</h3>
+        <h3 class="text">Ram Max : {{ram_max}}M</h3>
+      </div>
+    </div>
+  </div>
+
+  <app-server-page-left></app-server-page-left>
+</div>

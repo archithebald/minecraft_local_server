@@ -1,0 +1,42 @@
+.content {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 15px;
+}
+
+.content .title {
+  color: #2b87d3;
+  margin-bottom: 15px;
+}
+
+.content .server-overview {
+  background-color: #2d3943;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 20px;
+  border-radius: 15px;
+  gap: 15px;
+  color: white;
+  width: 30%;
+  margin-bottom: 15px;
+}
+
+.content .server-overview .image {
+  width: 75px;
+  border-radius: 50%;
+}
+
+.content .create-button {
+  color: white;
+  margin-top: 15px;
+  padding: 15px;
+  font-size: 22px;
+  width: 30%;
+  border-radius: 15px;
+  border: 2px solid #2b87d3;
+  background-color: #2d3943;
+  cursor: pointer;
+}
