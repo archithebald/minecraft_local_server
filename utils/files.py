@@ -26,6 +26,9 @@ def get_server_files(server_id: str):
         
     return data
 
+def get_server_file_path(server_id: str, path: str, name: str):
+    return os.path.join(SERVERS, server_id, path, name)
+
 def read_file_content(path: str, server_id: str):
     f = open(os.path.join(SERVERS, server_id, path), "r", encoding="utf-8")
     
