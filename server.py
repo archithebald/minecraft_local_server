@@ -9,6 +9,10 @@ class Server:
             server_db = json.loads(server_db)
          
         self.game_version = server_db["game_version"]
+        self.server_version = server_db["server_version"]
+        self.is_forge = True if self.server_version.startswith("forge") else False
+        self.version = self.get_version() if not self.is_forge else self.server_version.split("forge-")[1]
+#self.bat_path = os.path.join(self.path, "run.bat")
         self.jar_name = "server.jar"
         self.id = server_id
         self.path = os.path.join(SERVERS, str(self.id))
@@ -31,8 +35,7 @@ class Server:
             self.init_server()
     
     def create_instance(self):
-        self.version = self.get_version()
-        self.jar_url = self.get_jar_url()
+        self.jar_url = self.get_vanilla_jar_url() if not self.is_forge else self.get_forge_jar_url()
         self.download_jar()
 
     def get_version(self):
@@ -42,16 +45,21 @@ class Server:
         
         return next((version for version in response["versions"] if version["id"] == self.game_version), None)
 
-    def get_jar_url(self):
+    def get_vanilla_jar_url(self):
         version_link = self.version["url"]
         
         self.version_metadata = requests.get(version_link).json()
         
         return self.version_metadata["downloads"]["server"]["url"]
 
+    def get_forge_jar_url(self):
+        installer_url = f"https://maven.minecraftforge.net/net/minecraftforge/forge/{self.version}/forge-{self.version}-installer.jar"
+        
+        return installer_url
+
     def download_jar(self):
         response = requests.get(self.jar_url, stream=True)
-        
+
         if response.status_code == 200:
             with open(self.jar_path, "wb") as file:
                 for chunk in response.iter_content(1024):
@@ -59,6 +67,12 @@ class Server:
             print(f">>> Server instance downloaded at: {self.jar_path} ✅")
         else:
             print(f">>> Failed to download server instance. Status code: {response.status_code} ❌")
+            
+        if self.is_forge:
+            try:
+                subprocess.run(["java", "-jar", self.jar_path, "--installServer"], cwd=self.path)
+            except Exception as e:
+                print(e)
             
     def get_pid(self):
         jar_name = self.jar_path.split("\\")[-1]
@@ -73,6 +87,33 @@ class Server:
             return None
             
     def start(self):
+        if not self.is_forge:
+            return self.vanilla_start()
+        else:
+            return self.forge_start()
+            
+    def forge_start(self):
+        try:
+            command = ["java", "@user_jvm_args.txt", f"@libraries/net/minecraftforge/forge/{self.version}/win_args.txt", f"-Xmx{str(self.ram_max)}M", f"-Xms{str(self.ram_min)}M"]
+            self.process = subprocess.Popen(
+                command,
+                cwd=self.path,
+                text=True,
+                stdin=subprocess.PIPE, 
+                stdout=subprocess.PIPE,
+                universal_newlines=True
+            )
+            print(">>> Server started. ✅")
+            
+            self.accept_eula()
+            
+            return self.process
+        except Exception as e:
+            print(">>> Error while starting server. ❌")
+            print(f">>> Error : {e}")
+            return False
+            
+    def vanilla_start(self):
         try:
             command = ["java", f"-Xmx{str(self.ram_max)}M", f"-Xms{str(self.ram_min)}M", "-jar", self.jar_path, "nogui"]
             self.process = subprocess.Popen(
