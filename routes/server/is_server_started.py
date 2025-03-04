@@ -1,5 +1,5 @@
 from utils.server_methods import send_response
-from utils.server_methods import get_processes, server_exists
+from utils.server_methods import get_processes
 from flask import request
 from utils.database import Database
 
@@ -9,6 +9,6 @@ def route():
     server_id = request.args.get("id")
 
     if server_id in get_processes():
-        return send_response("true", params={"server_id": server_id})
+        return send_response("true")
     else:
         return send_response("false")

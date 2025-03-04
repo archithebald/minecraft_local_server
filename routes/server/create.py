@@ -18,4 +18,4 @@ def route():
     server_id = db.insert_server(game_version=game_version, description=description, ram_max=ram_max, ram_min=ram_min, server_version=server_version)
     Server(server_db=db.get_server(server_id=server_id), server_id=server_id)
         
-    return send_response(content="success", params=None)
+    return send_response(content="success")

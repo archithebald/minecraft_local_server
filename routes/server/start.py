@@ -19,11 +19,6 @@ def route():
     server_id = request.args.get(key="id")
     db_server = db.get_server(server_id=server_id)
         
-    exists = server_exists(server_id, db_server)
-    
-    if exists != None:
-        return exists
-        
     server = Server(server_db=db_server, server_id=server_id)
     process = server.start()
     
