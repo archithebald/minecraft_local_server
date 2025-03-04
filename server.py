@@ -2,6 +2,7 @@ import requests, os, subprocess, json, configparser
 
 from time import sleep
 from utils.config import SERVERS
+from forge_api import Forge
 
 class Server:
     def __init__(self, server_db, server_id: str = None, init: bool = True):
@@ -12,7 +13,6 @@ class Server:
         self.server_version = server_db["server_version"]
         self.is_forge = True if self.server_version.startswith("forge") else False
         self.version = self.get_version() if not self.is_forge else self.server_version.split("forge-")[1]
-#self.bat_path = os.path.join(self.path, "run.bat")
         self.jar_name = "server.jar"
         self.id = server_id
         self.path = os.path.join(SERVERS, str(self.id))
@@ -30,7 +30,8 @@ class Server:
             else:
                 print(">>> Server instance found. ✅")
                 
-            #self.forge_app = Forge()
+            if self.is_forge:
+                self.forge_app = Forge()
                 
             self.init_server()
     
@@ -206,3 +207,14 @@ class Server:
         properties = self.get_properties()
         prop = [prop.split("=")[1] for prop in properties if prop.split("=")[0] == name]
         return prop[0]
+    
+    def add_mods(self, ids: list):
+        self.mods_path = os.path.join(self.path, "mods")
+        
+        if not self.is_forge or not os.path.exists(self.mods_path):
+            return None
+        
+        self.forge_app.download_mods(ids, self.mods_path)
+    
+    def remove_mods(self):
+        pass

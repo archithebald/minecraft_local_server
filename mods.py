@@ -35,5 +35,29 @@ class Modpack:
         pass        
     
 class Mod:
-    def __init__(self, forge_link: str):
-        pass
+    def __init__(self, id: int, game_version: str):
+        self.id = id
+        self.game_version = game_version
+        
+        self.get_mod()
+        
+        self.versions = self.mod["versions"]
+        self.slug = self.mod["links"][0]["link"].split("/")[-1]
+        
+        self.compatible_files = []
+        
+        self.get_file_link()
+    
+    def get_mod(self):
+        URL = f"https://api.modpacks.ch/public/mod/{str(self.id)}"
+        
+        try:
+            self.mod = requests.get(URL).json()
+        except Exception as e:
+            print(e)
+            
+    def get_file_link(self):
+        for version in self.versions:
+            self.compatible_files.extend([version for target in version["targets"] if target["version"] == self.game_version])
+
+print(Mod(id=238222, game_version="1.12.2").mod_link)
