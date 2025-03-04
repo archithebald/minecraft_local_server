@@ -1,5 +1,9 @@
-import pymongo, json
+import pymongo, json, os
 from bson import ObjectId
+from pymongo.errors import PyMongoError
+
+from utils.files import delete_folder
+from utils.config import SERVERS, send_response
 
 class Singleton:
     _instances = {}
@@ -30,6 +34,17 @@ class Database(Singleton):
         except Exception as e:
             print(">>> {}".format(e))
             
+    def server_exists(self, server_id: str):
+        if server_id == None:
+            return send_response(content="Missing id parameter", success=False, code=400)
+        
+        server_db = self.SERVERS.get_server(server_id)
+        
+        if server_db == None:
+            return send_response(content="Server doesn't exist", success=False, code=404)
+        
+        return None
+            
     def get_server(self, server_id: str):
         try:
             server = self.SERVERS.find_one(filter={"_id": ObjectId(server_id)})
@@ -55,3 +70,26 @@ class Database(Singleton):
         return json.dumps(
             [{**server, "_id": str(server["_id"])} for server in self.SERVERS.find()]
         )
+        
+    def safe_delete_server(self, server_id):
+        with self.CLIENT_CONN.start_session() as session:
+            try:
+                with session.start_transaction():
+                    result = self.SERVERS.delete_one({"_id": server_id}, session=session)
+                    
+                    if result.deleted_count == 0:
+                        return send_response(content="Server not found in the database.", success=False, code=404)
+                    
+                    folder_path = os.path.join(SERVERS, server_id)
+                    folder_status = delete_folder(path=folder_path)
+                    
+                    if not folder_status:
+                        session.abort_transaction()
+                        return send_response(content="Couldn't delete server files.", success=False, code=500, error="Folder deletion failed")
+                    
+                    return send_response()
+            except PyMongoError as e:
+                session.end_session()
+                return send_response(content="Database error occurred.", success=False, code=500, error=str(e))
+            except Exception as e:
+                return send_response(content="An error occurred.", success=False, code=500, error=str(e))

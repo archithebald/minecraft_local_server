@@ -19,6 +19,8 @@ class Server:
         self.path = os.path.join(SERVERS, str(self.id))
         self.jar_path = os.path.join(self.path, self.jar_name)
         self.eula_path = os.path.join(self.path, "eula.txt")
+        if self.is_forge:
+            self.mods_path = os.path.join(self.path, "mods")
         self.ram_min = server_db["ram_min"]
         self.ram_max = server_db["ram_max"]
 
@@ -201,9 +203,7 @@ class Server:
         prop = [prop.split("=")[1] for prop in properties if prop.split("=")[0] == name]
         return prop[0]
     
-    def add_mods(self, ids: list):
-        self.mods_path = os.path.join(self.path, "mods")
-        
+    def add_mods(self, ids: list):        
         if not self.is_forge or not os.path.exists(self.mods_path):
             return None
         

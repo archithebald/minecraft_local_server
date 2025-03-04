@@ -3,7 +3,7 @@ import os, importlib
 from utils.config import ROUTES, MODELS
 from utils.server_methods import send_response
 from models import *
-from flask import Flask, request, jsonify
+from flask import Flask, request
 from functools import wraps
 from marshmallow import ValidationError
 
