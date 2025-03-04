@@ -1,7 +1,7 @@
-from utils.config import send_response
 from flask import request
 from server import Server
 from utils.database import Database
+from utils.server_methods import send_response
 
 def route():
     db = Database()

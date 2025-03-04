@@ -3,6 +3,7 @@ import requests, os, subprocess, json, configparser
 from time import sleep
 from utils.config import SERVERS
 from forge_api import Forge
+from utils.files import download_file
 
 class Server:
     def __init__(self, server_db, server_id: str = None, init: bool = True):
@@ -31,7 +32,7 @@ class Server:
                 print(">>> Server instance found. ✅")
                 
             if self.is_forge:
-                self.forge_app = Forge()
+                self.forge_app = Forge(self.path, self.game_version)
                 
             self.init_server()
     
@@ -59,15 +60,7 @@ class Server:
         return installer_url
 
     def download_jar(self):
-        response = requests.get(self.jar_url, stream=True)
-
-        if response.status_code == 200:
-            with open(self.jar_path, "wb") as file:
-                for chunk in response.iter_content(1024):
-                    file.write(chunk)
-            print(f">>> Server instance downloaded at: {self.jar_path} ✅")
-        else:
-            print(f">>> Failed to download server instance. Status code: {response.status_code} ❌")
+        download_file(self.jar_url, self.path, "server", "jar")        
             
         if self.is_forge:
             try:
@@ -214,7 +207,7 @@ class Server:
         if not self.is_forge or not os.path.exists(self.mods_path):
             return None
         
-        self.forge_app.download_mods(ids, self.mods_path)
+        self.forge_app.download_mods(ids, self.game_version)
     
     def remove_mods(self):
         pass

@@ -2,9 +2,8 @@ import os
 
 from flask import request
 from utils.files import get_server_file_path
-from utils.server_methods import server_exists
+from utils.server_methods import send_response
 from utils.database import Database
-from utils.config import send_response
 
 def route():
     server_id = request.args.get("id")

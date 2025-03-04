@@ -1,8 +1,7 @@
 import threading
 
-from utils.config import send_response
 from utils.database import Database
-from utils.server_methods import add_process, server_exists
+from utils.server_methods import add_process, send_response
 
 from flask import request
 from server import Server

@@ -1,21 +1,15 @@
 import json
 
-from utils.config import send_response
 from flask import request
 from server import Server
 from utils.database import Database
-from utils.server_methods import server_exists
+from utils.server_methods import send_response
 
 def route():
     db = Database()
 
     server_id = request.args.get(key="id")
     db_server = db.get_server(server_id=server_id)
-        
-    exists = server_exists(server_id, db.get_server(server_id))
-    
-    if exists != None:
-        return exists
         
     updated_properties = json.loads(request.args.get("updated_properties"))
         

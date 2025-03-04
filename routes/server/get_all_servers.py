@@ -1,4 +1,4 @@
-from utils.config import send_response
+from utils.server_methods import send_response
 from utils.database import Database
 
 def route():

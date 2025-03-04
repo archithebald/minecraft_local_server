@@ -1,4 +1,4 @@
-import os
+import os, requests
 
 from utils.config import SERVERS, ROOT
 
@@ -38,3 +38,21 @@ def read_file_content(path: str, server_id: str):
         return content
     except Exception as e:
         return None
+    
+def download_file(url: str, path_to_download: str, file_name: str, extension: str):
+    response = requests.get(url=url, stream=True)
+    
+    if response.status_code == 200:
+        try:
+            with open(os.path.join(path_to_download, file_name+"."+extension), "wb") as file:
+                for chunk in response.iter_content(1024):
+                    file.write(chunk)
+                print(f">>> Download at: {path_to_download} ✅")
+        except PermissionError as e:
+            print("Please allow permissions.")
+            return None
+    else:
+        print(f">>> Failed to download {path_to_download}. Status code: {response.status_code} ❌")
+        
+def remove_file(path: str): # TODO
+    pass
