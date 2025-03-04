@@ -13,5 +13,5 @@ export const routes: Routes = [
   { path: 'server/:id/options', component: ServerOptionsPageComponent },
   { path: 'server/:id/console', component: ServerConsolePageComponent },
   { path: 'server/:id/files', component: ServerFilesPageComponent },
-  { path: 'create', component: CreateServerComponent, pathMatch: 'full' }
+  { path: 'create', component: CreateServerComponent, pathMatch: 'full' },
 ];

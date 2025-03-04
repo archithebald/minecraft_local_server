@@ -1,9 +1,12 @@
-import requests
+import requests, os
 
 from mods import Modpack, Mod
 
 class Forge:
-    def __init__(self):
+    def __init__(self, server_path: str, game_version: str):
+        self.mods_path = os.path.join(server_path, "mods")
+        self.game_version = game_version
+        
         self.BASE_URL = "https://www.curseforge.com/api/v1"
             
     def search_mods(self, index: int, **kwargs):
@@ -24,8 +27,8 @@ class Forge:
         except Exception as e:
             print(f"Error while fetching modpacks: {e}")
             
-    def download_mods(ids: list, mods_path: str):
-        mods = []
+    def download_mods(self, ids: list):
+        mods = [Mod(mod_id, self.game_version) for mod_id in ids]
         
-        for id in ids:
-            mods.append(Mod(id=id))
+        for mod in mods:
+            mod.download_mod(path_to_download=self.mods_path, file=mod.compatible_files[0])
