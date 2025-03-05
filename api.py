@@ -24,20 +24,26 @@ class API:
 
     def create_route(self, name, module_name, folder_name):
         module = importlib.import_module(f"routes.{module_name}")
-        c = self.get_model_class(folder=folder_name, name=name)
 
         @wraps(module.route)
         def dynamic_route():
             try:
-                if c != None:  
+                c = self.get_model_class(folder=folder_name, name=name)
+
+                if c != None:
                     c().load(request.args.to_dict())
+                    return module.route()
             except ValidationError as err:
                 return send_response(content=f"You missed some parameters" ,success=False, code=400, error=str(err))
-            try:
-                return module.route()
+            except TimeoutError as e:
+                return send_response(content="Timeout", success=False, code=408, error=str(e))
+            except FileNotFoundError as e:
+                return send_response(content="File not found", success=False, code=404, error=str(e))
+            except AttributeError as e:
+                return send_response(content="Server doesn't exist or id is wrong", success=False, code=404, error=str(e))
             except Exception as e:
                 return send_response(content="An error occured", success=False, code=500, error=str(e))
-
+            
         dynamic_route.__name__ = name 
 
         self.app.route(f"/{name}")(dynamic_route)

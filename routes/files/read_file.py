@@ -8,7 +8,7 @@ from utils.database import Database
 def route():
     server_id = request.args.get("id")
     path = request.args.get("path")
-    file_name = request.args.get("name")
+    file_name = request.args.get("file_name")
     
     content = read_file_content(path=os.path.join(path, file_name), server_id=server_id)
     

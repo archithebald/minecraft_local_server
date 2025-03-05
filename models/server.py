@@ -1,24 +1,27 @@
-from marshmallow import Schema, fields
+from marshmallow import Schema, fields, validate
+from models.models_variables import BaseSchema
 
-class ADD_MODS(Schema):
-    id = fields.Str(required=True)
-    mods_ids = fields.Str(required=True)
-    
+class ADD_MODS(BaseSchema):
+    mods_ids = fields.Str(required=True, validate=validate.Length(min=1))
+
 class CREATE(Schema):
-    game_version = fields.Str(required=True)
-    description = fields.Str(required=True)
-    server_version = fields.Str(required=True)
-    ram_max = fields.Str(required=True)
-    ram_min = fields.Str(required=True)
-    
-class GET_SERVER(Schema):
-    id = fields.Str(required=True)
-    
-class IS_SERVER_STARTED(Schema):
-    id = fields.Str(required=True)
-    
-class START(Schema):
-    id = fields.Str(required=True)
+    game_version = fields.Str(required=True, validate=validate.Length(min=1))
+    description = fields.Str(required=True, validate=validate.Length(min=1))
+    server_version = fields.Str(required=True, validate=validate.Length(min=1))
+    ram_max = fields.Str(required=True, validate=validate.Length(min=1))
+    ram_min = fields.Str(required=True, validate=validate.Length(min=1))
 
-class STOP(Schema):
-    id = fields.Str(required=True)
+class GET_SERVER(BaseSchema):
+    pass  
+
+class GET_ALL_SERVERS(Schema):
+    pass  
+
+class IS_SERVER_STARTED(BaseSchema):
+    pass  
+
+class START(BaseSchema):
+    pass
+
+class STOP(BaseSchema):
+    pass

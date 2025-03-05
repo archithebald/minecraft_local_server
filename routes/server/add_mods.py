@@ -17,6 +17,4 @@ def route():
     if not os.path.exists(server.mods_path):
         return send_response(content="Mods path doesn't exist, please start server first.", error="File Error", success=False, code=404)
     
-    server.forge_app.download_mods(ids=list(mods_ids))
-    
-    return send_response()
+    return server.forge_app.download_mods(ids=list(mods_ids))

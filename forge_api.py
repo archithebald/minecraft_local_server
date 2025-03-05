@@ -1,7 +1,7 @@
 import requests, os
 
 from mods import Modpack, Mod
-from utils.server_methods import send_response
+from utils.config import send_response
 
 class Forge:
     def __init__(self, server_path: str, game_version: str):
@@ -30,9 +30,15 @@ class Forge:
             
     def download_mods(self, ids: list):
         mods = [Mod(mod_id, self.game_version) for mod_id in ids]
+        wrong_ids = []
         
         for mod in mods:
             try:
                 mod.download_mod(path_to_download=self.mods_path, file=mod.compatible_files[0])
-            except ValueError as e:
-                return send_response(content=f"{mod.slug} has no compatible versions.", success=False, code=404, error=str(e))
+            except IndexError:
+                wrong_ids.append(mod.id)
+        
+        if wrong_ids:
+            return send_response(content=str(wrong_ids), success=False, code=404, error="Some mods ids are wrong")
+        else:
+            return send_response()
