@@ -13,9 +13,6 @@ def route():
         
     updated_properties = json.loads(request.args.get("updated_properties"))
         
-    if db_server == None:
-        return send_response(content="Server does not exist.")
-        
     server = Server(server_db=db_server, server_id=server_id, init=False)
 
     for key, value in updated_properties.items():
