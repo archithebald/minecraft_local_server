@@ -42,7 +42,7 @@ class API:
                 return send_response(content="File not found", success=False, code=404, error=str(e))
             except AttributeError as e:
                 return send_response(content="Server doesn't exist or id is wrong", success=False, code=404, error=str(e))
-
+        
         dynamic_route.__name__ = name 
 
         self.app.route(f"/{name}")(dynamic_route)
