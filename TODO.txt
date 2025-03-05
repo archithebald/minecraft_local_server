@@ -1,5 +1,4 @@
 [] - Fix delete route  
-[] - Add INSTALL_MOD route  
 [] - Add REMOVE_MOD route  
 [] - Add LIST_MODS route  
 [] - Add GET_ONLINE_PLAYERS route  
