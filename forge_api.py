@@ -1,6 +1,7 @@
 import requests, os
 
 from mods import Modpack, Mod
+from utils.server_methods import send_response
 
 class Forge:
     def __init__(self, server_path: str, game_version: str):
@@ -31,4 +32,7 @@ class Forge:
         mods = [Mod(mod_id, self.game_version) for mod_id in ids]
         
         for mod in mods:
-            mod.download_mod(path_to_download=self.mods_path, file=mod.compatible_files[0])
+            try:
+                mod.download_mod(path_to_download=self.mods_path, file=mod.compatible_files[0])
+            except ValueError as e:
+                return send_response(content=f"{mod.slug} has no compatible versions.", success=False, code=404, error=str(e))
