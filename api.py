@@ -33,7 +33,14 @@ class API:
                     c().load(request.args.to_dict())
             except ValidationError as err:
                 return send_response(content=f"You missed some parameters" ,success=False, code=400, error=str(err))
-            return module.route()
+            
+            try:
+                return module.route()
+            except TimeoutError as e:
+                return send_response(content="Timeout", success=False, code=408, error=str(e))
+            except FileNotFoundError as e:
+                return send_response(content="File not found", success=False, code=404, error=str(e))
+            
 
         dynamic_route.__name__ = name 
 
