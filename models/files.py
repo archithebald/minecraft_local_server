@@ -19,6 +19,9 @@ class MODIFY_FILE(Schema):
     
 class UPDATE_SERVER_PROPERTIES(Schema):
     id = fields.Str(required=True)
+    updated_properties = fields.Str(required=True)
     
 class UPDATE_SERVER_PROPERTY(Schema):
     id = fields.Str(required=True)
+    updated_name = fields.Str(required=True)
+    updated_value = fields.Str(required=True)
