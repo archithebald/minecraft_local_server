@@ -2,11 +2,16 @@ import requests, os, subprocess, json, configparser
 
 from time import sleep
 from utils.config import SERVERS
+from utils.database import Database
 from forge_api import Forge
 from utils.files import download_file
 
 class Server:
-    def __init__(self, server_db, server_id: str = None, init: bool = True):
+    def __init__(self, server_db = None, server_id: str = None, init: bool = True):
+        server_db = server_db or Database().get_server(server_id=server_id)
+        if server_db is None:
+            return None
+        
         if type(server_db) == str:
             server_db = json.loads(server_db)
          

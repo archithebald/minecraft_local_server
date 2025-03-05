@@ -29,18 +29,19 @@ class API:
         @wraps(module.route)
         def dynamic_route():
             try:
+                if request.args.get("id") == "":
+                    return send_response(content="Server id empty", success=False, code=400, error="Server id empty") 
                 if c != None:  
                     c().load(request.args.to_dict())
+                    return module.route()
             except ValidationError as err:
                 return send_response(content=f"You missed some parameters" ,success=False, code=400, error=str(err))
-            
-            try:
-                return module.route()
             except TimeoutError as e:
                 return send_response(content="Timeout", success=False, code=408, error=str(e))
             except FileNotFoundError as e:
                 return send_response(content="File not found", success=False, code=404, error=str(e))
-            
+            except AttributeError as e:
+                return send_response(content="Server doesn't exist or id is wrong", success=False, code=404, error=str(e))
 
         dynamic_route.__name__ = name 
 
