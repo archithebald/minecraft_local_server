@@ -2,6 +2,8 @@ import os, importlib
 
 from utils.config import ROUTES, MODELS
 from utils.server_methods import send_response
+from utils.database import Database
+
 from models import *
 from flask import Flask, request
 from functools import wraps
@@ -10,6 +12,7 @@ from marshmallow import ValidationError
 class API:
     def __init__(self):
         self.app = Flask(import_name=__name__)
+        self.db = Database()
         
         self.routes()
 
@@ -25,6 +28,9 @@ class API:
     def create_route(self, name, module_name, folder_name):
         module = importlib.import_module(f"routes.{module_name}")
 
+        if getattr(module, "route", None) is None:
+            return
+
         @wraps(module.route)
         def dynamic_route():
             try:
@@ -32,6 +38,13 @@ class API:
 
                 if c != None:
                     c().load(request.args.to_dict())
+                    
+                    if "id" in request.args.to_dict():
+                        db_server = self.db.get_server(server_id=request.args.get("id"))
+        
+                        if db_server == None:
+                            return send_response(content="Server does not exist.", error="Not found", success=False, code=404)
+                    
                     return module.route()
             except ValidationError as err:
                 return send_response(content=f"You missed some parameters" ,success=False, code=400, error=str(err))

@@ -1,6 +1,6 @@
 import os, requests
 
-from utils.config import SERVERS, ROOT
+from utils.config import SERVERS, ROOT, send_response
 
 def get_server_folder(server_id: str):
     server_path = os.path.join(SERVERS, server_id)

@@ -1,20 +1,14 @@
-import os
-
 from flask import request
 from server import Server
 
-from utils.database import Database
-from utils.server_methods import send_response
+from utils.server_methods import check_mods
 
 def route():
-    db = Database()
-    
     server_id = request.args.get("id")
     mods_ids = request.args.get("mods_ids").split(",")
     
-    server = Server(server_db=db.get_server(server_id), server_id=server_id)
+    server = Server(server_id=server_id)
     
-    if not os.path.exists(server.mods_path):
-        return send_response(content="Mods path doesn't exist, please start server first.", error="File Error", success=False, code=404)
+    checked = check_mods(server.mods_path)
     
-    return server.forge_app.download_mods(ids=mods_ids)
+    return server.forge_app.download_mods(ids=mods_ids) if checked == None else checked

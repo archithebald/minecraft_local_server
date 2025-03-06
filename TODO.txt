@@ -1,6 +1,6 @@
 [] - Fix delete route  
 [✅] - Add REMOVE_MOD route  
-[] - Add LIST_MODS route  
+[✅] - Add LIST_MODS route  
 [] - Add GET_ONLINE_PLAYERS route  
 [] - Add GET_TPS route  
 [] - Add GET_RESOURCE_USAGE route  

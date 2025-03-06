@@ -4,8 +4,6 @@ from flask import request
 from utils.database import Database
 
 def route():
-    db = Database()
-    
     server_id = request.args.get("id")
 
     if server_id in get_processes():

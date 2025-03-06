@@ -1,3 +1,5 @@
+import os
+
 from utils.config import send_response
 
 all_process = {}
@@ -23,3 +25,7 @@ def communicate_command(query: str, server_id: str):
     process.communicate(query)
             
     return send_response(content="success")
+
+def check_mods(path):
+    if not os.path.exists(path) :
+        return send_response(content="Mods path doesn't exist", error="File Error", success=False, code=404)

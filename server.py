@@ -1,4 +1,6 @@
-import requests, os, subprocess, json, configparser
+import requests, os, subprocess, json
+
+from packaging import version
 
 from time import sleep
 from utils.config import SERVERS
@@ -6,9 +8,11 @@ from utils.database import Database
 from forge_api import Forge
 from utils.files import download_file
 
+db = Database()
+
 class Server:
     def __init__(self, server_db = None, server_id: str = None, init: bool = True):
-        server_db = server_db or Database().get_server(server_id=server_id)
+        server_db = server_db or db.get_server(server_id=server_id)
         if server_db is None:
             return None
         
@@ -24,8 +28,7 @@ class Server:
         self.path = os.path.join(SERVERS, str(self.id))
         self.jar_path = os.path.join(self.path, self.jar_name)
         self.eula_path = os.path.join(self.path, "eula.txt")
-        if self.is_forge:
-            self.mods_path = os.path.join(self.path, "mods")
+        self.mods_path = os.path.join(self.path, "mods")
         self.ram_min = server_db["ram_min"]
         self.ram_max = server_db["ram_max"]
 
@@ -95,7 +98,12 @@ class Server:
             
     def forge_start(self):
         try:
-            command = ["java", f"-Xmx{str(self.ram_max)}M", f"-Xms{str(self.ram_min)}M", "-jar", self.server_version+"-shim.jar", "nogui"]
+            start_path = (
+                self.server_version + "-shim.jar"
+                if version.parse(self.game_version) > version.parse("1.21")
+                else self.server_version + ".jar"
+            )            
+            command = ["java", f"-Xmx{str(self.ram_max)}M", f"-Xms{str(self.ram_min)}M", "-jar", start_path, "nogui"]
             self.process = subprocess.Popen(
                 command,
                 cwd=self.path,

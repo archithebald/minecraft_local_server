@@ -1,9 +1,6 @@
 from marshmallow import Schema, fields, validate
 from models.models_variables import BaseSchema
 
-class ADD_MODS(BaseSchema):
-    mods_ids = fields.Str(required=True, validate=validate.Length(min=1))
-
 class CREATE(Schema):
     game_version = fields.Str(required=True, validate=validate.Length(min=1))
     description = fields.Str(required=True, validate=validate.Length(min=1))
