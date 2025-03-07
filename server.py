@@ -6,7 +6,7 @@ from time import sleep
 from utils.config import SERVERS
 from utils.database import Database
 from forge_api import Forge
-from utils.files import download_file
+from utils.files import download_file, delete_file
 
 db = Database()
 
@@ -71,10 +71,11 @@ class Server:
 
     def download_jar(self):
         download_file(self.jar_url, self.path, "server", "jar")        
-            
+        
         if self.is_forge:
             try:
                 subprocess.run(["java", "-jar", self.jar_path, "--installServer"], cwd=self.path)
+                delete_file(path=self.jar_path)
             except Exception as e:
                 print(e)
             
@@ -97,13 +98,10 @@ class Server:
             return self.forge_start()
             
     def forge_start(self):
-        try:
-            start_path = (
-                self.server_version + "-shim.jar"
-                if version.parse(self.game_version) > version.parse("1.21")
-                else self.server_version + ".jar"
-            )            
-            command = ["java", f"-Xmx{str(self.ram_max)}M", f"-Xms{str(self.ram_min)}M", "-jar", start_path, "nogui"]
+        try:                
+            server_jar_path = os.path.join(self.path, "libraries\\net\\minecraftforge\\forge", self.version, self.server_version+"-universal.jar")
+            command = ["java", f"-Xmx{str(self.ram_max)}M", f"-Xms{str(self.ram_min)}M", "-jar", server_jar_path, "nogui", "--onlyCheckJava"]
+
             self.process = subprocess.Popen(
                 command,
                 cwd=self.path,
