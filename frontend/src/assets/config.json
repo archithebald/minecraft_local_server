@@ -8,6 +8,7 @@
     "create_server": "/create",
     "is_server_started": "/is_server_started",
     "get_server_properties": "/get_server_properties",
-    "update_server_properties": "/update_server_properties"
+    "update_server_properties": "/update_server_properties",
+    "delete": "/delete"
   }
 }

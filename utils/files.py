@@ -1,4 +1,4 @@
-import os, requests
+import os, requests, shutil
 
 from utils.config import SERVERS, ROOT, send_response
 
@@ -55,12 +55,4 @@ def download_file(url: str, path_to_download: str, file_name: str, extension: st
         print(f">>> Failed to download {path_to_download}. Status code: {response.status_code} ❌")
         
 def delete_file(path: str):
-    os.remove(path=path)
-    
-def delete_folder(path: str):
-    try:
-        os.rmdir(path=path)
-        
-        return True
-    except Exception as e:
-        print(f">>> {e}")
+    shutil.rmtree(path)

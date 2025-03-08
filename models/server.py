@@ -22,3 +22,6 @@ class START(BaseSchema):
 
 class STOP(BaseSchema):
     pass
+
+class DELETE(BaseSchema):
+    pass

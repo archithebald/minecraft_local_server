@@ -99,8 +99,9 @@ class Server:
             
     def forge_start(self):
         try:                
-            server_jar_path = os.path.join(self.path, "libraries\\net\\minecraftforge\\forge", self.version, self.server_version+"-universal.jar")
-            command = ["java", f"-Xmx{str(self.ram_max)}M", f"-Xms{str(self.ram_min)}M", "-jar", server_jar_path, "nogui", "--onlyCheckJava"]
+            #server_jar_path = os.path.join(self.path, "libraries\\net\\minecraftforge\\forge", self.version, self.server_version+"-universal.jar")
+            #command = ["java", f"-Xmx{str(self.ram_max)}M", f"-Xms{str(self.ram_min)}M", "-jar", server_jar_path, "nogui", "--onlyCheckJava"]
+            command = ["java", f"@user_jvm_args.txt", f"@{self.path}\\libraries\\net\\minecraftforge\\forge\\{self.version}\\win_args.txt", f"Xmx{str(self.ram_max)}M", f"Xms{str(self.ram_min)}M"]
 
             self.process = subprocess.Popen(
                 command,

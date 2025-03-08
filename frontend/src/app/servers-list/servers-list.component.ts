@@ -14,7 +14,7 @@ import { CommonModule, NgFor } from '@angular/common';
 @Component({
   selector: 'app-servers-list',
   standalone: true,
-  imports: [RouterOutlet, HttpClientModule, CommonModule],
+  imports: [RouterOutlet, HttpClientModule, CommonModule, MatIcon],
   templateUrl: './servers-list.component.html',
   styleUrl: './servers-list.component.css',
 })
@@ -23,6 +23,18 @@ export class ServersListComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchAllServers();
+  }
+
+  deleteServer(id: string) {
+    var div = document.getElementById(id) as HTMLDivElement;
+
+    var url =
+      this.config.getApiBaseUrl() +
+      this.config.getEndpoint('delete') +
+      `?id=${id}`;
+    this.http.get(url).subscribe((response: any) => {
+      div.style.display = 'none';
+    });
   }
 
   fetchAllServers() {
@@ -38,7 +50,7 @@ export class ServersListComponent implements OnInit {
   }
 
   redirectToCreate() {
-    this.router.navigate(["/create"])
+    this.router.navigate(['/create']);
   }
 
   constructor(

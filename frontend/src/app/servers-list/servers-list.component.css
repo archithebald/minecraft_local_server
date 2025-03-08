@@ -22,8 +22,7 @@
 
 .content .servers-list .server {
   display: flex;
-  flex-direction: column;
-  justify-content: left;
+  flex-direction: row;
   align-items: center;
   width: 20vw;
   background-color: #2d3943;
@@ -31,6 +30,13 @@
   border-radius: 5px;
   border: 2px solid black;
   cursor: pointer;
+}
+
+.content .servers-list .server .informations {
+  flex: 8;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .content .servers-list .server .description {
@@ -66,4 +72,16 @@
   color: white;
   font-weight: bold;
   cursor: pointer;
+}
+
+.content .servers-list .server .interactions {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content .servers-list .server .interactions .delete-icon {
+  background-color: red;
+  border-radius: 5px;
 }

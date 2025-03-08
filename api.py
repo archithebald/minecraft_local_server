@@ -46,6 +46,8 @@ class API:
                             return send_response(content="Server does not exist.", error="Not found", success=False, code=404)
                     
                     return module.route()
+                else:
+                    return send_response(content="No model found.", error="Internal server error", success=False, code=500)
             except ValidationError as err:
                 return send_response(content=f"You missed some parameters" ,success=False, code=400, error=str(err))
             except TimeoutError as e:
