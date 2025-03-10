@@ -1,4 +1,4 @@
-import os
+import os, threading
 
 from utils.config import send_response
 
@@ -22,7 +22,8 @@ def communicate_command(query: str, server_id: str):
         return send_response(content="Server is not started or doesn't exist.", error="Not found", code=404, success=False)
             
     process = all_process[server_id]
-    process.communicate(query)
+    thread = threading.Thread(process.communicate(query))
+    thread.start()
             
     return send_response(content="success")
 
