@@ -5,13 +5,15 @@ import { ServerOptionsPageComponent } from './server-options-page/server-options
 import { ServerConsolePageComponent } from './server-console-page/server-console-page.component';
 import { CreateServerComponent } from './create-server/create-server.component';
 import { ServerFilesPageComponent } from './server-files-page/server-files-page.component';
+import { FilePageComponent } from './file-page/file-page.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'servers', pathMatch: 'full' },
   { path: 'servers', component: ServersListComponent, pathMatch: 'full' },
-  { path: 'server/:id', component: ServerPageComponent },
-  { path: 'server/:id/options', component: ServerOptionsPageComponent },
-  { path: 'server/:id/console', component: ServerConsolePageComponent },
-  { path: 'server/:id/files', component: ServerFilesPageComponent },
+  { path: 'server/:id', component: ServerPageComponent, pathMatch: 'full' },
+  { path: 'server/:id/options', component: ServerOptionsPageComponent, pathMatch: 'full' },
+  { path: 'server/:id/console', component: ServerConsolePageComponent, pathMatch: 'full' },
+  { path: 'server/:id/files', component: ServerFilesPageComponent, pathMatch: 'full' },
+  { path: 'server/:id/files/:file', component: FilePageComponent, pathMatch: 'full' },
   { path: 'create', component: CreateServerComponent, pathMatch: 'full' },
 ];

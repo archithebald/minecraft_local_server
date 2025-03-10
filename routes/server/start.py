@@ -26,7 +26,7 @@ def route():
     process = server.start()
     
     add_process(server_id, process)
-            
+       
     thread = threading.Thread(target=read_server_cli, args=(process,))
     thread.start()
             

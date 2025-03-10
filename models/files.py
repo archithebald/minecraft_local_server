@@ -8,7 +8,7 @@ class LIST_FILES(BaseSchema):
     pass
     
 class READ_FILE(BaseSchema):
-    path = fields.Str(required=True, validate=validate.Length(min=1))
+    path = fields.Str(required=True)
     file_name = fields.Str(required=True, validate=validate.Length(min=1))
     
 class MODIFY_FILE(BaseSchema):

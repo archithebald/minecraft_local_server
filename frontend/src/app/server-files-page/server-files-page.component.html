@@ -4,7 +4,18 @@
     <h1 class="title">Files</h1>
 
     <div class="files">
-        <div class="file"></div>
+      <div class="file" *ngFor="let file of currentFiles" (click)="redirectToFile(file)"
+        [ngStyle]="{'cursor': file.can_read ? 'pointer' : 'not-allowed'}">
+        <div class="left">
+          <mat-icon *ngIf="file.type == 'file'">description</mat-icon>
+          <mat-icon *ngIf="file.type == 'dir'">folder</mat-icon>
+          <p class="file-name">{{file.name}}</p>
+        </div>
+        <div class="right">
+          <p class="file-size">{{file.size}} B</p>
+          <mat-icon class="delete-icon">delete</mat-icon>
+        </div>
+      </div>
     </div>
   </div>
 

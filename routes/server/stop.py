@@ -7,8 +7,8 @@ def route():
     
     server_id = request.args.get(key="id")
     
-    response = communicate_command("stop", server_id)
-        
     remove_process(server_id)
-        
+    
+    response = communicate_command("stop", server_id)
+                
     return response

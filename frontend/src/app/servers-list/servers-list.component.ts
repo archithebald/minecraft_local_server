@@ -14,7 +14,7 @@ import { CommonModule, NgFor } from '@angular/common';
 @Component({
   selector: 'app-servers-list',
   standalone: true,
-  imports: [RouterOutlet, HttpClientModule, CommonModule, MatIcon],
+  imports: [RouterOutlet, HttpClientModule, CommonModule, MatIcon, CommonModule, NgFor],
   templateUrl: './servers-list.component.html',
   styleUrl: './servers-list.component.css',
 })

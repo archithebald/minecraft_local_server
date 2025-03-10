@@ -12,3 +12,53 @@
   color: #2b87d3;
   margin-bottom: 15px;
 }
+
+.content .main-content .files {
+  border-radius: 15px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.content .main-content .file {
+  width: 100%;
+  background-color: #2d3943;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.content .main-content .file .left {
+  display: flex;
+  flex: 3;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.content .main-content .file .right {
+  flex: 7;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: right;
+  gap: 10px;
+}
+
+.content .main-content .file .right .delete-icon {
+  cursor: pointer;
+  background-color: red;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.content .main-content .file .right .file-size {
+  background-color: #40505c;
+  padding: 5px;
+  width: 10%;
+  border-radius: 5px;
+  font-weight: bold;
+  text-align: center;
+}
