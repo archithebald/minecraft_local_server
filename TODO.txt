@@ -2,6 +2,7 @@
 [✅] - Make all forge versions compatible to start server
 [✅] - Add REMOVE_MOD route  
 [✅] - Add LIST_MODS route  
+[] - Add delete file route
 [] - Add GET_ONLINE_PLAYERS route  
 [] - Add GET_TPS route  
 [] - Add GET_RESOURCE_USAGE route  
@@ -17,3 +18,6 @@
 [] - Add SEND_DISCORD_MESSAGE route
 [] - Add UPLOAD_FILE route
 [] - Add DOWNLOAD_FILE route
+[] - Create thread pool for every routes as a task
+[] - Cannot open files not readable (frontend)
+[] - Fix deleting server install jar when installing server
