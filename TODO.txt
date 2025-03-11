@@ -21,3 +21,5 @@
 [] - Create thread pool for every routes as a task
 [] - Cannot open files not readable (frontend)
 [] - Fix deleting server install jar when installing server
+[] - Wait for server.jar to install before being able to start server 
+[] - Install automatically last java jdk and jre if not the case
