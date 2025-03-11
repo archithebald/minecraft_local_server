@@ -1,7 +1,11 @@
 [✅] - Fix delete server route  
 [✅] - Make all forge versions compatible to start server
 [✅] - Add REMOVE_MOD route  
-[✅] - Add LIST_MODS route  
+[✅] - Add LIST_MODS route
+[✅] - Cannot open files not readable (frontend)
+[] - Fix deleting server install jar when installing server
+[] - Wait for server.jar to install before being able to start server 
+[] - Install automatically last java jdk and jre if not the case  
 [] - Add delete file route
 [] - Add GET_ONLINE_PLAYERS route  
 [] - Add GET_TPS route  
@@ -19,7 +23,3 @@
 [] - Add UPLOAD_FILE route
 [] - Add DOWNLOAD_FILE route
 [] - Create thread pool for every routes as a task
-[] - Cannot open files not readable (frontend)
-[] - Fix deleting server install jar when installing server
-[] - Wait for server.jar to install before being able to start server 
-[] - Install automatically last java jdk and jre if not the case
