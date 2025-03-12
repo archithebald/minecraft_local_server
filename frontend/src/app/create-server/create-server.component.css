@@ -40,3 +40,30 @@
   background-color: #2d3943;
   cursor: pointer;
 }
+
+.content .form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin: 30px 0;
+}
+
+.content .form .required {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.content .form .required label {
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.content .form .required input {
+  padding: 5px;
+  outline: none;
+  border: 3px solid black;
+}

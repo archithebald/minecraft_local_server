@@ -2,12 +2,29 @@
 <div class="content">
   <h1 class="title">Create</h1>
   <div class="server-overview">
-    <img src="https://i.pinimg.com/564x/4a/16/1d/4a161d4d6fa53f0cba2152411e2e2159.jpg" alt="Server image"
-      class="image" />
+    <img src="{{ current_image }}" alt="Server image" class="image" />
     <div class="informations">
-      <p class="adress">Address</p>
-      <p class="description">A minecraft server.</p>
+      <p class="adress">{{ current_adress }}</p>
+      <p class="description">{{ current_description }}</p>
     </div>
   </div>
-  <button class="create-button" (click)="createServer('1.21.1', 'A minecraft server.', '2048', '1024', 'Vanilla')">Create</button>
+  <div class="form">
+    <div class="required">
+      <label for="server-description">Description</label>
+      <input
+        id="server-description"
+        [(ngModel)]="current_description"
+        type="text"
+      />
+    </div>
+    <div class="required">
+      <label for="ram-min">Ram Minimum</label>
+      <input id="ram-min" [(ngModel)]="ram_min" type="text" />
+    </div>
+    <div class="required">
+      <label for="ram-max">Ram Maximum</label>
+      <input id="ram-max" [(ngModel)]="ram_max" type="text" />
+    </div>
+  </div>
+  <button class="create-button" (click)="createServer()">Create</button>
 </div>

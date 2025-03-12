@@ -62,11 +62,13 @@ def download_file(url: str, path_to_download: str, file_name: str, extension: st
                 for chunk in response.iter_content(1024):
                     file.write(chunk)
                 print(f">>> Download at: {path_to_download} ✅")
+                return True
         except PermissionError as e:
             print("Please allow permissions.")
             return None
     else:
         print(f">>> Failed to download {path_to_download}. Status code: {response.status_code} ❌")
+        return None
         
 def delete_file(path: str):
-    shutil.rmtree(path)
+    os.remove(path)

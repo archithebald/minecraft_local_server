@@ -70,7 +70,10 @@ class Server:
         return installer_url
 
     def download_jar(self):
-        download_file(self.jar_url, self.path, "server", "jar")        
+        status = download_file(self.jar_url, self.path, "server", "jar")        
+        
+        if status == None:
+            return
         
         if self.is_forge:
             try:
